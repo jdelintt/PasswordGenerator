@@ -16,25 +16,45 @@ var numberArray = {
 };
 var prepArray = [];
 
-var userPassword = prompt(
-  "Enter the number of characters you want in your password"
+var userPasswordLength;
+do {
+  if (userPasswordLength !== undefined) {
+    alert("The number you typed in needs to be 8-128 characters. Try again!");
+  }
+  userPasswordLength = prompt(
+    "Enter the number of characters you want in your password"
+  );
+  userPasswordLength = parseInt(userPasswordLength);
+} while (
+  userPasswordLength < 8 ||
+  userPasswordLength > 128 ||
+  isNaN(userPasswordLength) === true
 );
 
-if (userPassword < 8 || userPassword > 128) {
-  alert("The number you typed in needs to be 8-128 characters. Try again!");
-}
-
-var userCharacterChoice = confirm("Do you want special characters?");
-var userNumberChoice = confirm("Do you want numbers?");
-var userLowerCaseChoice = confirm(
+specialCharacterArray.password = confirm("Do you want special characters?");
+numberArray.password = confirm("Do you want numbers?");
+lowerCaseCharacterArray.password = confirm(
   "Do you want the password to have lower case letters?"
 );
-var userUpperCaseChoice = confirm(
+upperCaseCharacterArray.password = confirm(
   "Do you want the password to have upper case letters?"
 );
 
-var myCar = {
-  make: "Ford",
-  model: "Mustang",
-  year: 1969,
-};
+function moveToArray(obj) {
+  if (obj.password === true) {
+    prepArray.push(...obj.array);
+  }
+}
+moveToArray(upperCaseCharacterArray);
+moveToArray(lowerCaseCharacterArray);
+moveToArray(specialCharacterArray);
+moveToArray(numberArray);
+
+var generatedPassword = "";
+
+for (var i = 0; i < userPasswordLength; i++) {
+  var index = Math.floor(Math.random() * prepArray.length);
+  generatedPassword = generatedPassword + prepArray[index];
+}
+
+console.log(generatedPassword);
