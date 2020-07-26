@@ -57,4 +57,4 @@ for (var i = 0; i < userPasswordLength; i++) {
   generatedPassword = generatedPassword + prepArray[index];
 }
 
-console.log(generatedPassword);
+alert(generatedPassword);
